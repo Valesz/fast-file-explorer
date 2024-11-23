@@ -29,9 +29,9 @@ class Program
         FileService.Instance.CurrentWorkingDirectory = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
         FileService.Instance.ReadAllFiles(FileService.Instance.CurrentWorkingDirectory);
         
+        ConsoleHelper.Instance.UpdateHeader(["Current Working Directory:", FileService.Instance.CurrentWorkingDirectory]);
         ConsoleHelper.Instance.WriteAllFilesToConsole(FileService.Instance.Files);
         
-        Console.CursorVisible = false;
         Cursor.Instance.MoveCursor(0);
 
         while (true)

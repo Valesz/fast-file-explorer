@@ -7,7 +7,7 @@ public class OpenDirectoryCommand : ICommand
 {
     public void Execute()
     {
-        FileService.Instance.OpenDirectory(FileService.Instance.Files[Cursor.Instance.Position]);
+        FileService.Instance.OpenDirectory(Cursor.Instance.GetSelectedContent());
         Cursor.Instance.MoveCursor(0);
     }
 }

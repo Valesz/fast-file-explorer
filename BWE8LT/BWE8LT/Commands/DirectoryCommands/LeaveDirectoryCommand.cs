@@ -7,7 +7,6 @@ public class LeaveDirectoryCommand : ICommand
 {
     public void Execute()
     {
-        Cursor.Instance.MoveCursor(0);
         FileService.Instance.LeaveDirectory();
         Cursor.Instance.MoveCursor(0);
     }

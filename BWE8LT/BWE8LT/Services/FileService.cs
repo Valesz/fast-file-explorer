@@ -34,6 +34,7 @@ public class FileService
         CurrentWorkingDirectory = Path.Join(CurrentWorkingDirectory, directory);
         ReadAllFiles(CurrentWorkingDirectory);
         ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
+        ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
     }
 
     public void LeaveDirectory()
@@ -45,12 +46,14 @@ public class FileService
             CurrentWorkingDirectory = CurrentWorkingDirectory.Substring(0, indexOfLastSeparator + 1);
             ReadAllFiles(CurrentWorkingDirectory);
             ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
+            ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
             return;
         }
         
         CurrentWorkingDirectory = CurrentWorkingDirectory.Substring(0, indexOfLastSeparator);
         ReadAllFiles(CurrentWorkingDirectory);
         ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
+        ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
     }
     
     public void ReadAllFiles(string path)

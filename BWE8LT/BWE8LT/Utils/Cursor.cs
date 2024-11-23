@@ -33,13 +33,30 @@ public class Cursor
     
     public void MoveCursor(int newCursorPosition)
     {
-        if (Position < _fileService.Files.Length)
-            _consoleHelper.RewriteLine(Position, _fileService.Files[Position]);
-     
-        Position = Math.Clamp(newCursorPosition, 0, _fileService.Files.Length - 1);
+        Position = Math.Clamp(newCursorPosition, 0, _consoleHelper.Content.Count - 1);
+
+        if (Position > _consoleHelper.WindowEndIndex - 5)
+        {
+            _consoleHelper.WindowStartIndex++;
+            _consoleHelper.WindowEndIndex++;
+        } else if (Position < _consoleHelper.WindowStartIndex + 4)
+        {
+            int predictedWindowStartIndex = Math.Max(_consoleHelper.WindowStartIndex - 1, -1);
+            if (predictedWindowStartIndex <= -1)
+            {
+                _consoleHelper.RefreshDisplay();
+                return;
+            }
+            
+            _consoleHelper.WindowStartIndex--;
+            _consoleHelper.WindowEndIndex--;
+        }
         
-        Console.ForegroundColor = ConsoleColor.Green;
-        _consoleHelper.RewriteLine(Position, _fileService.Files[Position]);
-        Console.ResetColor();
+        _consoleHelper.RefreshDisplay();
+    }
+
+    public string GetSelectedContent()
+    {
+        return _consoleHelper.Content[Position];
     }
 }
