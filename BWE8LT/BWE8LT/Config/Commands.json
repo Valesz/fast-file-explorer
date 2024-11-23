@@ -1,0 +1,24 @@
+{
+    "CommandsList": [
+        {
+            "Key": "UpArrow",
+            "Action": "MOVE_UP"
+        },
+        {
+            "Key": "DownArrow",
+            "Action": "MOVE_DOWN"
+        },
+        {
+            "Key": "Escape",
+            "Action": "EXIT_APPLICATION"
+        },
+        {
+            "Key": "O",
+            "Action": "OPEN_FOLDER"
+        },
+        {
+            "Key": "OemPeriod",
+            "Action": "CLOSE_FOLDER"
+        }
+    ]
+}
