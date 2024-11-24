@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.DirectoryCommands;
 
 public class OpenDirectoryCommand : ICommand
 {
-    public void Execute()
+    public void Execute(ConsoleKey pressedKey)
     {
         FileService.Instance.OpenDirectory(Cursor.Instance.GetSelectedContent());
         Cursor.Instance.MoveCursor(0);

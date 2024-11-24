@@ -19,6 +19,58 @@
         {
             "Key": "OemPeriod",
             "Action": "CLOSE_FOLDER"
+        },
+        {
+            "Key" : "T",
+            "Action": "MOVE_TOP"
+        },
+        {
+            "Key": "M",
+            "Action": "MOVE_MIDDLE"
+        },
+        {
+            "Key": "B",
+            "Action": "MOVE_BOTTOM"
+        },
+        {
+            "Key": "D1",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D2",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D3",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D4",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D5",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D6",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D7",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D8",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D9",
+            "Action": "ITERATE"
+        },
+        {
+            "Key": "D0",
+            "Action": "ITERATE"
         }
     ]
 }

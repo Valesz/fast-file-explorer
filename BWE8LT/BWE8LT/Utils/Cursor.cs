@@ -25,31 +25,31 @@ public class Cursor
     
     public int Position { get; private set; }
 
+    public int LookAheadInConsole { get; set; }
+    
     private Cursor(FileService fileService, ConsoleHelper helper)
     {
         _fileService = fileService;
         _consoleHelper = helper;
+        
+        LookAheadInConsole = 4;
     }
     
     public void MoveCursor(int newCursorPosition)
     {
-        Position = Math.Clamp(newCursorPosition, 0, _consoleHelper.Content.Count - 1);
+        if (newCursorPosition < 0 || newCursorPosition > _consoleHelper.Content.Count - 1 || Position == newCursorPosition)
+        {
+            return;
+        }
+        
+        Position = newCursorPosition;
 
-        if (Position > _consoleHelper.WindowEndIndex - 5)
+        if (Position < _consoleHelper.WindowStartIndex + LookAheadInConsole)
         {
-            _consoleHelper.WindowStartIndex++;
-            _consoleHelper.WindowEndIndex++;
-        } else if (Position < _consoleHelper.WindowStartIndex + 4)
+            _consoleHelper.SetWindowTopPosition(_consoleHelper.WindowStartIndex + (Position - _consoleHelper.WindowStartIndex - LookAheadInConsole));
+        } else if (Position > _consoleHelper.WindowEndIndex - LookAheadInConsole - 1)
         {
-            int predictedWindowStartIndex = Math.Max(_consoleHelper.WindowStartIndex - 1, -1);
-            if (predictedWindowStartIndex <= -1)
-            {
-                _consoleHelper.RefreshDisplay();
-                return;
-            }
-            
-            _consoleHelper.WindowStartIndex--;
-            _consoleHelper.WindowEndIndex--;
+            _consoleHelper.SetWindowTopPosition(_consoleHelper.WindowStartIndex + (Position - _consoleHelper.WindowEndIndex + LookAheadInConsole));
         }
         
         _consoleHelper.RefreshDisplay();

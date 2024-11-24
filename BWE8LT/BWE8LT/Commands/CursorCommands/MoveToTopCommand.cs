@@ -2,10 +2,10 @@ using BWE8LT.Utils;
 
 namespace BWE8LT.Commands.CursorCommands;
 
-public class MoveDownCommand : ICommand
+public class MoveToTopCommand : ICommand
 {
     public void Execute(ConsoleKey pressedKey)
     {
-        Cursor.Instance.MoveCursor(Cursor.Instance.Position + 1);
+        Cursor.Instance.MoveCursor(0);
     }
 }

@@ -9,18 +9,29 @@ namespace BWE8LT.Services;
 
 public class CommandService
 {
-    private readonly string _configPath;
-    
-    public static HashSet<Command> Commands { get; } = new HashSet<Command>();
+    private static CommandService _instance;
 
-    public CommandService(string configPath)
+    public static CommandService Instance
     {
-        _configPath = configPath;
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new CommandService();
+            }  
+            
+            return _instance;
+        }
+    }
+
+    private CommandService()
+    {
+        
     }
     
-    public void LoadCommands()
+    public void LoadCommands(string configPath)
     {
-        string configText = File.ReadAllText(_configPath);
+        string configText = File.ReadAllText(configPath);
 
         var serializer = new JsonSerializerOptions
         {
@@ -32,6 +43,23 @@ public class CommandService
         foreach (Command command in config.CommandsList)
         {
             ICommand.Commands.Add(command.Key, command.Action);
+        }
+    }
+
+    public ConsoleKey ReadCommandKey()
+    {
+        return Console.ReadKey(true).Key;
+    }
+
+    public void ExecuteCommand(ConsoleKey commandKey)
+    {
+        try
+        {
+            ICommand.Commands[commandKey].Invoke(commandKey);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            Console.Error.WriteLine(ex.Message);
         }
     }
 }

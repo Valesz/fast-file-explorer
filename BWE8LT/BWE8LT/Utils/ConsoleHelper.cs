@@ -42,12 +42,12 @@ public class ConsoleHelper
         Content = [];
         
         WindowStartIndex = 0;
-        WindowEndIndex = CalculateWindowEndIndex();
+        WindowEndIndex = CalculateWindowHeight();
         
         RefreshDisplay();
     }
 
-    private int CalculateWindowEndIndex() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
+    private int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
     
     private string GetHeaderContentFooterDivider() => new string('-', Console.WindowWidth);
     
@@ -66,7 +66,7 @@ public class ConsoleHelper
             if (Cursor.Instance.Position == i)
                 Console.ForegroundColor = ConsoleColor.Green;
                 
-            Console.Write(Content[i].PadRight(Console.WindowWidth));
+            Console.Write($"{i + 1}. {Content[i]}".PadRight(Console.WindowWidth));
             
             Console.ResetColor();
         }
@@ -80,8 +80,39 @@ public class ConsoleHelper
         {
             Console.Write(line.PadRight(Console.WindowWidth));
         }
+
+        if (Content.Count > CalculateWindowHeight())
+        {
+            DrawScrollBar();    
+        }
         
         Console.SetCursorPosition(0, originalCursorPosition);
+    }
+
+    private void DrawScrollBar()
+    {
+        double visiblePercentage = (double)Cursor.Instance.Position / Content.Count;
+        int indicatorPosition = (int)(visiblePercentage * CalculateWindowHeight());
+        
+        Console.ForegroundColor = ConsoleColor.DarkGray;
+        for (int i = HeaderContent.Count; i < Console.WindowHeight - FooterContent.Count; i++)
+        {
+            Console.SetCursorPosition(Console.WindowWidth - 1, i);
+            Console.Write("█");
+        }
+        
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.SetCursorPosition(Console.WindowWidth - 1, HeaderContent.Count + indicatorPosition);
+        
+        Console.Write("█");
+        
+        Console.ResetColor();
+    }
+
+    public void SetWindowTopPosition(int top)
+    {
+        WindowStartIndex = Math.Clamp(top, 0, Content.Count);
+        WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
     }
 
     public void WriteLine(string line)
@@ -114,7 +145,7 @@ public class ConsoleHelper
     {
         Content.Clear();
         WindowStartIndex = 0;
-        WindowEndIndex = CalculateWindowEndIndex();
+        WindowEndIndex = CalculateWindowHeight();
         
         RefreshDisplay();
     }
@@ -124,16 +155,17 @@ public class ConsoleHelper
         HeaderContent = header;
         HeaderContent.Add(GetHeaderContentFooterDivider());
 
-        WindowEndIndex = CalculateWindowEndIndex();
+        WindowEndIndex = CalculateWindowHeight();
         RefreshDisplay();
     }
 
     public void UpdateFooter(List<string> footer)
     {
-        FooterContent = footer;
+        FooterContent.Clear();
         FooterContent.Add(GetHeaderContentFooterDivider());
-        
-        WindowEndIndex = CalculateWindowEndIndex();
+        FooterContent.AddRange(footer);
+
+        WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
         RefreshDisplay();
     }
     

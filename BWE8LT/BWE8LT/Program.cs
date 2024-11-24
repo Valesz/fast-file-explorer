@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
 using BWE8LT.Commands;
 using BWE8LT.Model;
 using BWE8LT.Services;
@@ -10,10 +12,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        CommandService commandConfig = new CommandService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "Commands.json"));
+        Start(args.Length > 0 ? args[0] : Directory.GetCurrentDirectory());
+    }
+
+    public static void Start(string currentWorkingDirectory)
+    {
         try
         {
-            commandConfig.LoadCommands();
+            CommandService.Instance.LoadCommands(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "Commands.json"));
         }
         catch (DirectoryNotFoundException ex)
         {
@@ -26,7 +32,9 @@ class Program
             Environment.Exit(-1);
         }
         
-        FileService.Instance.CurrentWorkingDirectory = args.Length > 0 ? args[0] : Directory.GetCurrentDirectory();
+        Console.Clear();
+        
+        FileService.Instance.CurrentWorkingDirectory = currentWorkingDirectory;
         FileService.Instance.ReadAllFiles(FileService.Instance.CurrentWorkingDirectory);
         
         ConsoleHelper.Instance.UpdateHeader(["Current Working Directory:", FileService.Instance.CurrentWorkingDirectory]);
@@ -36,15 +44,8 @@ class Program
 
         while (true)
         {
-            ConsoleKey action = Console.ReadKey().Key;
-            try
-            {
-                ICommand.Commands[action].Invoke();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                Console.Error.WriteLine(ex.Message);
-            }
+            ConsoleKey pressedKey = CommandService.Instance.ReadCommandKey();
+            CommandService.Instance.ExecuteCommand(pressedKey);
         }
     }
 }

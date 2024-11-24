@@ -43,6 +43,11 @@ public class FileService
         
         if (CurrentWorkingDirectory.IndexOf(Path.VolumeSeparatorChar) == indexOfLastSeparator - 1)
         {
+            if (indexOfLastSeparator == CurrentWorkingDirectory.Length - 1)
+            {
+                return;
+            }
+            
             CurrentWorkingDirectory = CurrentWorkingDirectory.Substring(0, indexOfLastSeparator + 1);
             ReadAllFiles(CurrentWorkingDirectory);
             ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
@@ -52,8 +57,8 @@ public class FileService
         
         CurrentWorkingDirectory = CurrentWorkingDirectory.Substring(0, indexOfLastSeparator);
         ReadAllFiles(CurrentWorkingDirectory);
-        ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
         ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
+        ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
     }
     
     public void ReadAllFiles(string path)
