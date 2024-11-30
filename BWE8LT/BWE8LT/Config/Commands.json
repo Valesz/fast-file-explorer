@@ -9,6 +9,14 @@
             "Action": "MOVE_DOWN"
         },
         {
+            "Key": "LeftArrow",
+            "Action": "SWITCH_WINDOW_LEFT"
+        },
+        {
+            "Key": "RightArrow",
+            "Action": "SWITCH_WINDOW_RIGHT"
+        },
+        {
             "Key": "Escape",
             "Action": "EXIT_APPLICATION"
         },
@@ -31,6 +39,14 @@
         {
             "Key": "B",
             "Action": "MOVE_BOTTOM"
+        },
+        {
+            "Key": "N",
+            "Action": "NEW_WINDOW"
+        },
+        {
+            "Key": "D",
+            "Action": "DELETE_WINDOW"
         },
         {
             "Key": "D1",

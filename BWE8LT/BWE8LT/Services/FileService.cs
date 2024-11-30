@@ -42,4 +42,17 @@ public class FileService
     {
         Files = Directory.GetFileSystemEntries(path).Select(x => x.Substring(path.Length)).ToArray();
     }
+
+    public bool IsAtVolumeRoot() =>
+        WorkingDirectory.LastIndexOf(Path.DirectorySeparatorChar) == WorkingDirectory.Length - 1;
+    
+    public string GetLastDirectoryInPath()
+    {
+        if (IsAtVolumeRoot())
+        {
+            return WorkingDirectory.Substring(0, WorkingDirectory.LastIndexOf(Path.DirectorySeparatorChar));
+        }
+
+        return WorkingDirectory.Substring(WorkingDirectory.LastIndexOf(Path.DirectorySeparatorChar));
+    }
 }

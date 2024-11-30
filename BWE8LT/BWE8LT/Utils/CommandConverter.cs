@@ -18,11 +18,7 @@ public class CommandConverter : JsonConverter<Command>
 
             ICommand command = CommandFactory.CreateCommand(root.GetProperty("Action").GetString());
 
-            return new Command
-            {
-                Key = key,
-                Action = command.Execute,
-            };
+            return new Command(key, command.Execute);
         }
         catch (ArgumentException ex)
         {

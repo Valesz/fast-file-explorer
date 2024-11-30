@@ -14,5 +14,7 @@ public class OpenDirectoryCommand : ICommand
 	        "Current working directory: ", 
 	        consoleController.CurrentWindow.FileService.WorkingDirectory
         ]);
+        
+        consoleController.UpdateWindowIndicators();
     }
 }

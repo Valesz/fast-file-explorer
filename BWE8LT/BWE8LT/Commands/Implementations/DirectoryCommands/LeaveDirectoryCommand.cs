@@ -22,5 +22,7 @@ public class LeaveDirectoryCommand : ICommand
 	        "Current working directory: ", 
 	        consoleController.CurrentWindow.FileService.WorkingDirectory
         ]);
+        
+        consoleController.UpdateWindowIndicators();
     }
 }
