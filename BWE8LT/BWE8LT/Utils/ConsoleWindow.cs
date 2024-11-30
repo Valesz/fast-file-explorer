@@ -2,38 +2,28 @@ using BWE8LT.Services;
 
 namespace BWE8LT.Utils;
 
-public class ConsoleHelper
+public class ConsoleWindow
 {
     private List<string> HeaderContent { get; set; }
     
-    private List<string> FooterContent { get; set; }
+    private List<string> FooterContent { get; }
 
-    private int ContentBufferSize { get; set; }
+    private int ContentBufferSize { get; }
     
     public List<string> Content { get; }
 
     public int WindowStartIndex { get; set; }
 
     public int WindowEndIndex { get; set; }
+
+    public Cursor Cursor { get; }
     
-    private static ConsoleHelper _instance;
+    public FileService FileService { get; }
 
-    public static ConsoleHelper Instance
+    public ConsoleWindow(string workingDirectory)
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new ConsoleHelper();
-            }
-            
-            return _instance;
-        }
-    }
-
-    private ConsoleHelper()
-    {
-        Console.CursorVisible = false;
+	    Cursor = new Cursor(this);
+	    FileService = new FileService(workingDirectory);
 
         HeaderContent = ["Header", GetHeaderContentFooterDivider()];
         FooterContent = [GetHeaderContentFooterDivider(), ""];
@@ -49,7 +39,7 @@ public class ConsoleHelper
 
     private int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
     
-    private string GetHeaderContentFooterDivider() => new string('-', Console.WindowWidth);
+    private static string GetHeaderContentFooterDivider() => new string('-', Console.WindowWidth);
     
     public void RefreshDisplay()
     {
@@ -63,7 +53,7 @@ public class ConsoleHelper
 
         for (int i = WindowStartIndex; i < Math.Min(Content.Count, WindowEndIndex); i++)
         {
-            if (Cursor.Instance.Position == i)
+            if (Cursor.Position == i)
                 Console.ForegroundColor = ConsoleColor.Green;
                 
             Console.Write($"{i + 1}. {Content[i]}".PadRight(Console.WindowWidth));
@@ -91,7 +81,7 @@ public class ConsoleHelper
 
     private void DrawScrollBar()
     {
-        double visiblePercentage = (double)Cursor.Instance.Position / Content.Count;
+        double visiblePercentage = (double)Cursor.Position / Content.Count;
         int indicatorPosition = (int)(visiblePercentage * CalculateWindowHeight());
         
         Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -176,13 +166,13 @@ public class ConsoleHelper
         RefreshDisplay();
     }
 
-    public void WriteAllFilesToConsole(string[] files)
+    public void WriteAllFilesToConsole()
     {
         this.Clear();
         
-        for (int i = 0; i < files.Length; i++)
+        for (int i = 0; i < FileService.Files.Length; i++)
         {
-            this.WriteLine(files[i]);
+            this.WriteLine(FileService.Files[i]);
         }
     }
 }

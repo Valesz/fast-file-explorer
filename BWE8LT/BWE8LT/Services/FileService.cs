@@ -1,64 +1,41 @@
-using BWE8LT.Utils;
-
 namespace BWE8LT.Services;
 
 public class FileService
 {
-    public string CurrentWorkingDirectory { get; set; }
+    public string WorkingDirectory { get; set; }
 
     public string[] Files { get; set; }
 
-    private static FileService _instance;
-
-    public static FileService Instance
+    public FileService(string workingDirectory)
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new FileService();
-            }
-            
-            return _instance;
-        }
-    }
-
-    private FileService()
-    {
-        CurrentWorkingDirectory = Directory.GetCurrentDirectory();
-        ReadAllFiles(CurrentWorkingDirectory);
+        WorkingDirectory = workingDirectory;
+        ReadAllFiles(WorkingDirectory);
     }
 
     public void OpenDirectory(string directory)
     {
-        CurrentWorkingDirectory = Path.Join(CurrentWorkingDirectory, directory);
-        ReadAllFiles(CurrentWorkingDirectory);
-        ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
-        ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
+        WorkingDirectory = Path.Join(WorkingDirectory, directory);
+        ReadAllFiles(WorkingDirectory);
     }
 
     public void LeaveDirectory()
     {
-        int indexOfLastSeparator = CurrentWorkingDirectory.LastIndexOf(Path.DirectorySeparatorChar);
+        int indexOfLastSeparator = WorkingDirectory.LastIndexOf(Path.DirectorySeparatorChar);
         
-        if (CurrentWorkingDirectory.IndexOf(Path.VolumeSeparatorChar) == indexOfLastSeparator - 1)
+        if (WorkingDirectory.IndexOf(Path.VolumeSeparatorChar) == indexOfLastSeparator - 1)
         {
-            if (indexOfLastSeparator == CurrentWorkingDirectory.Length - 1)
+            if (indexOfLastSeparator == WorkingDirectory.Length - 1)
             {
                 return;
             }
             
-            CurrentWorkingDirectory = CurrentWorkingDirectory.Substring(0, indexOfLastSeparator + 1);
-            ReadAllFiles(CurrentWorkingDirectory);
-            ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
-            ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
+            WorkingDirectory = WorkingDirectory.Substring(0, indexOfLastSeparator + 1);
+            ReadAllFiles(WorkingDirectory);
             return;
         }
         
-        CurrentWorkingDirectory = CurrentWorkingDirectory.Substring(0, indexOfLastSeparator);
-        ReadAllFiles(CurrentWorkingDirectory);
-        ConsoleHelper.Instance.UpdateHeader(["Current Working directory:", CurrentWorkingDirectory]);
-        ConsoleHelper.Instance.WriteAllFilesToConsole(Files);
+        WorkingDirectory = WorkingDirectory.Substring(0, indexOfLastSeparator);
+        ReadAllFiles(WorkingDirectory);
     }
     
     public void ReadAllFiles(string path)

@@ -1,11 +1,11 @@
-using BWE8LT.Utils;
+using BWE8LT.Services;
 
 namespace BWE8LT.Commands.CursorCommands;
 
 public class MoveDownCommand : ICommand
 {
-    public void Execute(ConsoleKey pressedKey)
+    public void Execute(ConsoleKey pressedKey, ConsoleController consoleController)
     {
-        Cursor.Instance.MoveCursor(Cursor.Instance.Position + 1);
+	    consoleController.CurrentWindow.Cursor.MoveCursor(consoleController.CurrentWindow.Cursor.Position + 1);
     }
 }

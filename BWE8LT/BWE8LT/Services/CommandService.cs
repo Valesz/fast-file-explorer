@@ -1,35 +1,14 @@
-using System.Collections;
 using System.Text.Json;
-using System.Text.Json.Nodes;
+
 using BWE8LT.Commands;
 using BWE8LT.Model;
 using BWE8LT.Utils;
 
 namespace BWE8LT.Services;
 
-public class CommandService
+public static class CommandService
 {
-    private static CommandService _instance;
-
-    public static CommandService Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new CommandService();
-            }  
-            
-            return _instance;
-        }
-    }
-
-    private CommandService()
-    {
-        
-    }
-    
-    public void LoadCommands(string configPath)
+    public static void LoadCommands(string configPath)
     {
         string configText = File.ReadAllText(configPath);
 
@@ -46,16 +25,16 @@ public class CommandService
         }
     }
 
-    public ConsoleKey ReadCommandKey()
+    public static ConsoleKey ReadCommandKey()
     {
         return Console.ReadKey(true).Key;
     }
 
-    public void ExecuteCommand(ConsoleKey commandKey)
+    public static void ExecuteCommand(ConsoleKey commandKey, ConsoleController consoleController)
     {
         try
         {
-            ICommand.Commands[commandKey].Invoke(commandKey);
+            ICommand.Commands[commandKey].Invoke(commandKey, consoleController);
         }
         catch (KeyNotFoundException ex)
         {

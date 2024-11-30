@@ -1,10 +1,10 @@
-using BWE8LT.Utils;
+using BWE8LT.Services;
 
 namespace BWE8LT.Commands;
 
 public class ExitApplicationCommand : ICommand
 {
-    public void Execute(ConsoleKey pressedKey)
+    public void Execute(ConsoleKey pressedKey, ConsoleController consoleController)
     {
         Console.Clear();
         Console.CursorVisible = true;

@@ -1,14 +1,8 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-using BWE8LT.Commands;
-using BWE8LT.Model;
-using BWE8LT.Services;
-using BWE8LT.Utils;
+﻿using BWE8LT.Services;
 
 namespace BWE8LT;
 
-class Program
+static class Program
 {
     static void Main(string[] args)
     {
@@ -17,9 +11,10 @@ class Program
 
     public static void Start(string currentWorkingDirectory)
     {
+	    ConsoleController consoleController = new ConsoleController(currentWorkingDirectory);
         try
         {
-            CommandService.Instance.LoadCommands(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "Commands.json"));
+            CommandService.LoadCommands(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "Commands.json"));
         }
         catch (DirectoryNotFoundException ex)
         {
@@ -33,19 +28,22 @@ class Program
         }
         
         Console.Clear();
+        Console.CursorVisible = false;
         
-        FileService.Instance.CurrentWorkingDirectory = currentWorkingDirectory;
-        FileService.Instance.ReadAllFiles(FileService.Instance.CurrentWorkingDirectory);
+        consoleController.CurrentWindow.FileService.ReadAllFiles(consoleController.CurrentWindow.FileService.WorkingDirectory);
         
-        ConsoleHelper.Instance.UpdateHeader(["Current Working Directory:", FileService.Instance.CurrentWorkingDirectory]);
-        ConsoleHelper.Instance.WriteAllFilesToConsole(FileService.Instance.Files);
+        consoleController.CurrentWindow.UpdateHeader([
+	        "Current working directory:", 
+	        consoleController.CurrentWindow.FileService.WorkingDirectory
+        ]);
+        consoleController.CurrentWindow.WriteAllFilesToConsole();
         
-        Cursor.Instance.MoveCursor(0);
+        consoleController.CurrentWindow.Cursor.MoveCursor(0);
 
         while (true)
         {
-            ConsoleKey pressedKey = CommandService.Instance.ReadCommandKey();
-            CommandService.Instance.ExecuteCommand(pressedKey);
+            ConsoleKey pressedKey = CommandService.ReadCommandKey();
+            CommandService.ExecuteCommand(pressedKey, consoleController);
         }
     }
 }

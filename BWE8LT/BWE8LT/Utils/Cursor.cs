@@ -1,62 +1,42 @@
-using BWE8LT.Services;
-
 namespace BWE8LT.Utils;
 
 public class Cursor
 {
-    private readonly FileService _fileService;
-    
-    private readonly ConsoleHelper _consoleHelper;
-    
-    private static Cursor _instance;
-
-    public static Cursor Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new Cursor(FileService.Instance, ConsoleHelper.Instance);
-            }
-            
-            return _instance;
-        }
-    }
+    private readonly ConsoleWindow _consoleWindow;
     
     public int Position { get; private set; }
 
     public int LookAheadInConsole { get; set; }
     
-    private Cursor(FileService fileService, ConsoleHelper helper)
+    public Cursor(ConsoleWindow window)
     {
-        _fileService = fileService;
-        _consoleHelper = helper;
+        _consoleWindow = window;
         
         LookAheadInConsole = 4;
     }
     
     public void MoveCursor(int newCursorPosition)
     {
-        if (newCursorPosition < 0 || newCursorPosition > _consoleHelper.Content.Count - 1 || Position == newCursorPosition)
+        if (newCursorPosition < 0 || newCursorPosition > _consoleWindow.Content.Count - 1 || Position == newCursorPosition)
         {
             return;
         }
         
         Position = newCursorPosition;
 
-        if (Position < _consoleHelper.WindowStartIndex + LookAheadInConsole)
+        if (Position < _consoleWindow.WindowStartIndex + LookAheadInConsole)
         {
-            _consoleHelper.SetWindowTopPosition(_consoleHelper.WindowStartIndex + (Position - _consoleHelper.WindowStartIndex - LookAheadInConsole));
-        } else if (Position > _consoleHelper.WindowEndIndex - LookAheadInConsole - 1)
+            _consoleWindow.SetWindowTopPosition(_consoleWindow.WindowStartIndex + (Position - _consoleWindow.WindowStartIndex - LookAheadInConsole));
+        } else if (Position > _consoleWindow.WindowEndIndex - LookAheadInConsole - 1)
         {
-            _consoleHelper.SetWindowTopPosition(_consoleHelper.WindowStartIndex + (Position - _consoleHelper.WindowEndIndex + LookAheadInConsole));
+            _consoleWindow.SetWindowTopPosition(_consoleWindow.WindowStartIndex + (Position - _consoleWindow.WindowEndIndex + LookAheadInConsole));
         }
         
-        _consoleHelper.RefreshDisplay();
+        _consoleWindow.RefreshDisplay();
     }
 
     public string GetSelectedContent()
     {
-        return _consoleHelper.Content[Position];
+        return _consoleWindow.Content[Position];
     }
 }
