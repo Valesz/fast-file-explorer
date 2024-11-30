@@ -1,11 +1,12 @@
-using BWE8LT.Services;
+using BWE8LT.Controller;
 
-namespace BWE8LT.Commands.CursorCommands;
+namespace BWE8LT.Commands.Implementations.CursorCommands;
 
 public class MoveToBottomCommand : ICommand
 {
     public void Execute(ConsoleKey pressedKey, ConsoleController consoleController)
     {
 	    consoleController.CurrentWindow.Cursor.MoveCursor(consoleController.CurrentWindow.Content.Count - 1);
+        consoleController.CurrentWindow.RefreshDisplay();
     }
 }

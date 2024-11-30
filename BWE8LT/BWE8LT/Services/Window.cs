@@ -1,12 +1,10 @@
-using BWE8LT.Services;
+namespace BWE8LT.Services;
 
-namespace BWE8LT.Utils;
-
-public class ConsoleWindow
+public class Window
 {
-    private List<string> HeaderContent { get; set; }
+    public List<string> HeaderContent { get; }
     
-    private List<string> FooterContent { get; }
+    public List<string> FooterContent { get; }
 
     private int ContentBufferSize { get; }
     
@@ -20,7 +18,7 @@ public class ConsoleWindow
     
     public FileService FileService { get; }
 
-    public ConsoleWindow(string workingDirectory)
+    public Window(string workingDirectory)
     {
 	    Cursor = new Cursor(this);
 	    FileService = new FileService(workingDirectory);
@@ -33,8 +31,6 @@ public class ConsoleWindow
         
         WindowStartIndex = 0;
         WindowEndIndex = CalculateWindowHeight();
-        
-        RefreshDisplay();
     }
 
     private int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
@@ -113,8 +109,6 @@ public class ConsoleWindow
         {
             Content.RemoveAt(0);
         }
-        
-        RefreshDisplay();
     }
 
     public void Write(string text)
@@ -127,8 +121,6 @@ public class ConsoleWindow
         {
             Content[^1] += text;
         }
-        
-        RefreshDisplay();
     }
 
     public void Clear()
@@ -136,17 +128,15 @@ public class ConsoleWindow
         Content.Clear();
         WindowStartIndex = 0;
         WindowEndIndex = CalculateWindowHeight();
-        
-        RefreshDisplay();
     }
 
     public void UpdateHeader(List<string> header)
     {
-        HeaderContent = header;
+        HeaderContent.Clear();
+        HeaderContent.AddRange(header);
         HeaderContent.Add(GetHeaderContentFooterDivider());
 
         WindowEndIndex = CalculateWindowHeight();
-        RefreshDisplay();
     }
 
     public void UpdateFooter(List<string> footer)
@@ -156,17 +146,14 @@ public class ConsoleWindow
         FooterContent.AddRange(footer);
 
         WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
-        RefreshDisplay();
     }
     
     public void RewriteLine(int linePosition, string line)
     {
         Content[linePosition] = line;
-        
-        RefreshDisplay();
     }
 
-    public void WriteAllFilesToConsole()
+    public void WriteLoadedFilesToConsole()
     {
         this.Clear();
         

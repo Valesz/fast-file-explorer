@@ -1,20 +1,20 @@
 using System.Text;
 
-using BWE8LT.Utils;
+using BWE8LT.Services;
 
-namespace BWE8LT.Services;
+namespace BWE8LT.Controller;
 
 public class ConsoleController
 {
-	public ConsoleWindow CurrentWindow { get; set; }
+	public Window CurrentWindow { get; set; }
 
-	public List<ConsoleWindow> Windows { get; }
+	public List<Window> Windows { get; }
 
 	public ConsoleController(string workingDirectory)
 	{
-		Windows = new List<ConsoleWindow>();
+		Windows = new List<Window>();
 		
-		ConsoleWindow initalWindow = new ConsoleWindow(workingDirectory);
+		Window initalWindow = new Window(workingDirectory);
 		
 		CurrentWindow = initalWindow;
 		Windows.Add(initalWindow);
@@ -24,7 +24,7 @@ public class ConsoleController
 
     public int CreateNewWindow(string workingDirectory)
     {
-        ConsoleWindow newWindow = new ConsoleWindow(workingDirectory);
+        Window newWindow = new Window(workingDirectory);
         Windows.Add(newWindow);
         
         return Windows.Count;
@@ -32,11 +32,6 @@ public class ConsoleController
 
     public void DeleteWindow(int index)
     {
-        if (Windows.Count == 1)
-        {
-            return;
-        }
-        
         Windows.RemoveAt(index);
     }
 
@@ -58,7 +53,7 @@ public class ConsoleController
     {
         StringBuilder footerString = new StringBuilder();
         
-        foreach (ConsoleWindow window in Windows)
+        foreach (Window window in Windows)
         {
             if (window == CurrentWindow)
             {

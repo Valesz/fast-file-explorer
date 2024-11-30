@@ -1,6 +1,6 @@
-using BWE8LT.Services;
+using BWE8LT.Controller;
 
-namespace BWE8LT.Commands;
+namespace BWE8LT.Commands.Implementations.UtilCommands;
 
 public class ExitApplicationCommand : ICommand
 {

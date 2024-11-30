@@ -1,6 +1,6 @@
-using BWE8LT.Services;
+using BWE8LT.Controller;
 
-namespace BWE8LT.Commands.DirectoryCommands;
+namespace BWE8LT.Commands.Implementations.DirectoryCommands;
 
 public class OpenDirectoryCommand : ICommand
 {
@@ -9,12 +9,13 @@ public class OpenDirectoryCommand : ICommand
 	    consoleController.CurrentWindow.FileService.OpenDirectory(consoleController.CurrentWindow.Cursor.GetSelectedContent());
         consoleController.CurrentWindow.Cursor.MoveCursor(0);
         
-        consoleController.CurrentWindow.WriteAllFilesToConsole();
+        consoleController.CurrentWindow.WriteLoadedFilesToConsole();
         consoleController.CurrentWindow.UpdateHeader([
 	        "Current working directory: ", 
 	        consoleController.CurrentWindow.FileService.WorkingDirectory
         ]);
         
         consoleController.UpdateWindowIndicators();
+        consoleController.CurrentWindow.RefreshDisplay();
     }
 }

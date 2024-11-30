@@ -1,4 +1,5 @@
-﻿using BWE8LT.Services;
+﻿using BWE8LT.Controller;
+using BWE8LT.Services;
 
 namespace BWE8LT;
 
@@ -36,9 +37,10 @@ static class Program
 	        "Current working directory:", 
 	        consoleController.CurrentWindow.FileService.WorkingDirectory
         ]);
-        consoleController.CurrentWindow.WriteAllFilesToConsole();
+        consoleController.CurrentWindow.WriteLoadedFilesToConsole();
         
         consoleController.CurrentWindow.Cursor.MoveCursor(0);
+        consoleController.CurrentWindow.RefreshDisplay();
 
         while (true)
         {

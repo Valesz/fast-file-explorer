@@ -1,10 +1,10 @@
 using System.Collections.Frozen;
 
 using BWE8LT.Commands;
-using BWE8LT.Commands.CursorCommands;
-using BWE8LT.Commands.DirectoryCommands;
+using BWE8LT.Commands.Implementations.CursorCommands;
+using BWE8LT.Commands.Implementations.DirectoryCommands;
+using BWE8LT.Commands.Implementations.UtilCommands;
 using BWE8LT.Commands.Implementations.WindowCommands;
-using BWE8LT.Commands.UtilCommands;
 
 namespace BWE8LT.Utils.Constants;
 

@@ -1,4 +1,4 @@
-using BWE8LT.Services;
+using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.Implementations.WindowCommands;
 
@@ -14,8 +14,9 @@ public class CreateNewWindowCommand : ICommand
             "Current working directory: ",
             consoleController.CurrentWindow.FileService.WorkingDirectory
         ]);
-        consoleController.CurrentWindow.WriteAllFilesToConsole();
+        consoleController.CurrentWindow.WriteLoadedFilesToConsole();
         
         consoleController.UpdateWindowIndicators();
+        consoleController.CurrentWindow.RefreshDisplay();
     }
 }
