@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.DirectoryCommands;
 
 public class OpenDirectoryCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (!Directory.Exists(consoleController.CurrentWindow.Cursor.GetSelectedFile().FullPath))
         {

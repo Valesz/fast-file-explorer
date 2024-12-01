@@ -1,14 +1,14 @@
 using BWE8LT.Model;
 
-namespace BWE8LT.Services;
+namespace BWE8LT.Services.Implementations;
 
-public class Cursor
+public class Cursor : ICursor
 {
     private readonly Window _window;
     
-    public int Position { get; private set; }
+    public int Position { get; set; }
 
-    public int LookAheadInConsole { get; set; }
+    private int LookAheadInConsole { get; }
     
     public Cursor(Window window)
     {

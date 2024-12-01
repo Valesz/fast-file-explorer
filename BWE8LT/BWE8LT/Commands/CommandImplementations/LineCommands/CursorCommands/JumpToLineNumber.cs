@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.LineCommands.CursorCommands;
 
 public class JumpToLineNumber : ILineCommand
 {
-    public void Execute(string line, ConsoleController consoleController)
+    public void Execute(string line, IConsoleController consoleController)
     {
         string[] args = line.Split(" ")[1..];
         consoleController.CurrentWindow.Cursor.MoveCursor(Int32.Parse(args[0]) - 1);

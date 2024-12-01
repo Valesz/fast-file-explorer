@@ -4,5 +4,5 @@ namespace BWE8LT.Model;
 
 public record LineCommand(
     string Key,
-    Action<string, ConsoleController> Action
+    Action<string, IConsoleController> Action
 ) : Command<string>(Key, Action);

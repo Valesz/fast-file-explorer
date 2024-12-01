@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.CursorCommands;
 
 public class JumpToContentStartsWithLetterCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         char startingChar = Console.ReadKey().KeyChar;
         int indexOfLine =

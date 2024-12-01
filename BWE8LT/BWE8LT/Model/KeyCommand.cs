@@ -4,5 +4,5 @@ namespace BWE8LT.Model;
 
 public record KeyCommand(
     ConsoleKeyInfo Key,
-    Action<ConsoleKeyInfo, ConsoleController> Action
+    Action<ConsoleKeyInfo, IConsoleController> Action
 ) : Command<ConsoleKeyInfo>(Key, Action);

@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.DirectoryCommands;
 
 public class LeaveDirectoryCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
 	    string workingDirectory = consoleController.CurrentWindow.FileService.WorkingDirectory;
 	    int indexOfLastSeparator = workingDirectory.LastIndexOf(Path.DirectorySeparatorChar);

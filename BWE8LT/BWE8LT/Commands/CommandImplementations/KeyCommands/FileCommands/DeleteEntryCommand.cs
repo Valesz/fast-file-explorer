@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.FileCommands;
 
 public class DeleteEntryCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         int cursorPosition = consoleController.CurrentWindow.Cursor.Position;
         string fullPathForEntry = consoleController.CurrentWindow.FileService.GetFullPathForLoadedFile(cursorPosition);
@@ -24,6 +24,7 @@ public class DeleteEntryCommand : IKeyCommand
             consoleController.CurrentWindow.Cursor.MoveCursor(consoleController.CurrentWindow.Cursor.Position - 1);
         }
         
+        consoleController.CurrentWindow.Clear();
         consoleController.CurrentWindow.FileService.ReadAllFiles(consoleController.CurrentWindow.FileService.WorkingDirectory);
         consoleController.CurrentWindow.WriteLoadedFilesToConsole();
         consoleController.CurrentWindow.RefreshDisplay();

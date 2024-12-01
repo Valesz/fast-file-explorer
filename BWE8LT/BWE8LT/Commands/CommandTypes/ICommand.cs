@@ -4,7 +4,7 @@ namespace BWE8LT.Commands.CommandTypes;
 
 public interface ICommand<in TCommand> where TCommand : notnull
 {
-    public static Dictionary<TCommand, Action<TCommand, ConsoleController>> Commands { get; } = [];
+    public static Dictionary<TCommand, Action<TCommand, IConsoleController>> Commands { get; } = [];
     
-    public void Execute(TCommand pressedKey, ConsoleController consoleController);
+    public void Execute(TCommand pressedKey, IConsoleController consoleController);
 }

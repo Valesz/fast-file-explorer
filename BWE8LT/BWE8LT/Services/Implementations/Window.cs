@@ -1,8 +1,8 @@
 using System.Text;
 
-namespace BWE8LT.Services;
+namespace BWE8LT.Services.Implementations;
 
-public class Window
+public class Window : IWindow
 {
     public List<string> HeaderContent { get; }
     
@@ -16,9 +16,9 @@ public class Window
 
     public int WindowEndIndex { get; set; }
 
-    public Cursor Cursor { get; }
+    public ICursor Cursor { get; }
     
-    public FileService FileService { get; }
+    public IFileService FileService { get; }
 
     public Window(string workingDirectory)
     {

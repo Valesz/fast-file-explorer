@@ -1,5 +1,7 @@
 using BWE8LT.Controller;
+using BWE8LT.Controller.Implementations;
 using BWE8LT.Services;
+using BWE8LT.Services.Implementations;
 
 namespace BWE8LT;
 
@@ -7,10 +9,11 @@ public static class Application
 {
     public static void Start(string currentWorkingDirectory)
     {
-        ConsoleController consoleController = new ConsoleController(currentWorkingDirectory);
+        ICommandService commandService = new CommandService();
+        IConsoleController consoleController = new ConsoleController(currentWorkingDirectory, commandService);
         try
         {
-            CommandService.LoadCommands(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "Commands.json"));
+            consoleController.CommandService.LoadCommands(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Config", "Commands.json"));
         }
         catch (DirectoryNotFoundException ex)
         {
@@ -26,7 +29,9 @@ public static class Application
         Console.Clear();
         
         consoleController.CurrentWindow.SetCursorVisibility(false);
-        consoleController.CurrentWindow.FileService.ReadAllFiles(consoleController.CurrentWindow.FileService.WorkingDirectory);
+        consoleController.CurrentWindow.FileService.ReadAllFiles(
+            consoleController.CurrentWindow.FileService.WorkingDirectory
+        );
         
         consoleController.CurrentWindow.UpdateHeader([
             "Current working directory:", 
@@ -40,8 +45,8 @@ public static class Application
 
         while (true)
         {
-            ConsoleKeyInfo pressedKey = CommandService.ReadKeyCommand();
-            CommandService.ExecuteKeyCommand(pressedKey, consoleController);
+            ConsoleKeyInfo pressedKey = consoleController.CommandService.ReadKeyCommand();
+            consoleController.CommandService.ExecuteKeyCommand(pressedKey, consoleController);
         }
     }
 }

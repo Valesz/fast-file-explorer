@@ -1,20 +1,25 @@
 using System.Text;
 
 using BWE8LT.Services;
+using BWE8LT.Services.Implementations;
 
-namespace BWE8LT.Controller;
+namespace BWE8LT.Controller.Implementations;
 
-public class ConsoleController
+public class ConsoleController : IConsoleController
 {
-	public Window CurrentWindow { get; set; }
+    public ICommandService CommandService { get; }
+    
+	public IWindow CurrentWindow { get; set; }
 
-	public List<Window> Windows { get; }
+	public List<IWindow> Windows { get; }
 
     public List<string> Clipboard { get; }
 
-	public ConsoleController(string workingDirectory)
-	{
-		Windows = new List<Window>();
+	public ConsoleController(string workingDirectory, ICommandService commandService)
+    {
+        CommandService = commandService;
+        
+		Windows = new List<IWindow>();
         Clipboard = new List<string>();
 		
 		Window initalWindow = new Window(workingDirectory);
@@ -52,7 +57,7 @@ public class ConsoleController
     {
         StringBuilder footerString = new StringBuilder();
         
-        foreach (Window window in Windows)
+        foreach (IWindow window in Windows)
         {
             if (window == CurrentWindow)
             {

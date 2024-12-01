@@ -1,6 +1,5 @@
 using BWE8LT.Commands.CommandTypes;
 using BWE8LT.Controller;
-using BWE8LT.Services;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.UtilCommands;
 
@@ -10,7 +9,7 @@ public class IterateCommand : IKeyCommand
 
     private static List<string> OriginalFooter { get; } = new List<string>();
     
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (OriginalFooter.Count == 0 && consoleController.CurrentWindow.FooterContent.Count > 0)
         {
@@ -26,16 +25,16 @@ public class IterateCommand : IKeyCommand
 
         consoleController.CurrentWindow.RefreshDisplay();
         
-        ConsoleKeyInfo commandKey = CommandService.ReadKeyCommand();
+        ConsoleKeyInfo commandKey = consoleController.CommandService.ReadKeyCommand();
         if (Int32.TryParse(commandKey.Key.ToString()[^1].ToString(), out _))
         {
-            CommandService.ExecuteKeyCommand(commandKey, consoleController);
+            consoleController.CommandService.ExecuteKeyCommand(commandKey, consoleController);
             return;
         }
         
         for (int i = 0; i < Int32.Parse(Times); i++)
         {
-            CommandService.ExecuteKeyCommand(commandKey, consoleController);
+            consoleController.CommandService.ExecuteKeyCommand(commandKey, consoleController);
         }
         
         Times = String.Empty;

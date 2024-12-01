@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.WindowCommands;
 
 public class SwitchToRightWindowFromCurrentCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         consoleController.SwitchCurrentWindow(consoleController.GetIndexOfCurrentWindow() + 1);
         

@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.FileCommands;
 
 public class CopyCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         int cursorPosition = consoleController.CurrentWindow.Cursor.Position;
         string fullPathForLoadedFile =

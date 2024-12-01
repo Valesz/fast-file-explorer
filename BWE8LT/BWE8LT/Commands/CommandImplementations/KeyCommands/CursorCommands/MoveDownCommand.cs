@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.CursorCommands;
 
 public class MoveDownCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (consoleController.CurrentWindow.Cursor.Position + 1 > consoleController.CurrentWindow.Content.Count - 1)
         {

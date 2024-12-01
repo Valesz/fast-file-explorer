@@ -1,8 +1,8 @@
 using BWE8LT.Model;
 
-namespace BWE8LT.Services;
+namespace BWE8LT.Services.Implementations;
 
-public class FileService
+public class FileService : IFileService
 {
     public string WorkingDirectory { get; set; }
 

@@ -5,7 +5,7 @@ namespace BWE8LT.Commands.CommandImplementations.KeyCommands.FileCommands;
 
 public class ReloadEntriesCommand : IKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, ConsoleController consoleController)
+    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         consoleController.CurrentWindow.FileService.ReadAllFiles(
             consoleController.CurrentWindow.FileService.WorkingDirectory

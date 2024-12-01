@@ -4,5 +4,5 @@ namespace BWE8LT.Model;
 
 public abstract record Command<TKey>(
     TKey Key,
-    Action<TKey, ConsoleController> Action
+    Action<TKey, IConsoleController> Action
 );

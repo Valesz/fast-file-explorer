@@ -5,13 +5,13 @@ using BWE8LT.Controller;
 using BWE8LT.Model;
 using BWE8LT.Model.JSON_Parse_Objects;
 
-namespace BWE8LT.Services;
+namespace BWE8LT.Services.Implementations;
 
-public static class CommandService
+public class CommandService : ICommandService
 {
-    public static CommandConfigJson CommandConfigJson { get; private set; }
+    public CommandConfigJson CommandConfigJson { get; set; }
     
-    public static void LoadCommands(string configPath)
+    public void LoadCommands(string configPath)
     {
         string configText = File.ReadAllText(configPath);
 
@@ -41,7 +41,7 @@ public static class CommandService
         }
     }
 
-    public static ConsoleKeyInfo ReadKeyCommand()
+    public ConsoleKeyInfo ReadKeyCommand()
     {
         ConsoleKeyInfo readKeyInfo = Console.ReadKey(true);
         
@@ -54,12 +54,12 @@ public static class CommandService
         );
     }
 
-    public static string ReadLineCommand()
+    public string ReadLineCommand()
     {
         return Console.ReadLine() ?? throw new ArgumentException("Nothing provided to execute");
     }
 
-    public static void ExecuteKeyCommand(ConsoleKeyInfo commandKey, ConsoleController consoleController)
+    public void ExecuteKeyCommand(ConsoleKeyInfo commandKey, IConsoleController consoleController)
     {
         try
         {
@@ -83,7 +83,7 @@ public static class CommandService
         }
     }
 
-    public static void ExecuteLineCommand(string line, ConsoleController consoleController)
+    public void ExecuteLineCommand(string line, IConsoleController consoleController)
     {
         try
         {
