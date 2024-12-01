@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace BWE8LT.Services;
 
 public class Window
@@ -156,10 +158,17 @@ public class Window
     public void WriteLoadedFilesToConsole()
     {
         this.Clear();
+
+        StringBuilder lineBuilder = new StringBuilder();
         
-        for (int i = 0; i < FileService.Files.Length; i++)
+        foreach (var file in FileService.Files)
         {
-            this.WriteLine(FileService.Files[i]);
+            lineBuilder.Append(file.Name);
+            lineBuilder.Append(" - ");
+            lineBuilder.Append(file.IsDirectory ? "(DIR)" : "(FILE)");
+            
+            this.WriteLine(lineBuilder.ToString());
+            lineBuilder.Clear();
         }
     }
 }

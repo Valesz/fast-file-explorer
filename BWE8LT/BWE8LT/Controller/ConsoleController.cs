@@ -10,9 +10,12 @@ public class ConsoleController
 
 	public List<Window> Windows { get; }
 
+    public List<string> Clipboard { get; }
+
 	public ConsoleController(string workingDirectory)
 	{
 		Windows = new List<Window>();
+        Clipboard = new List<string>();
 		
 		Window initalWindow = new Window(workingDirectory);
 		
@@ -67,5 +70,11 @@ public class ConsoleController
         footerString.Remove(footerString.Length - 2, 2);
         
         CurrentWindow.UpdateFooter([footerString.ToString()]);
+    }
+
+    public void Copy(string[] path)
+    {
+        Clipboard.Clear();
+        Clipboard.AddRange(path);
     }
 }

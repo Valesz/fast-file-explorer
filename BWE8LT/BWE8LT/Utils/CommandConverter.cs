@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using BWE8LT.Commands;
 using BWE8LT.Model;
+using BWE8LT.Utils.Constants;
 
 namespace BWE8LT.Utils;
 
@@ -28,7 +29,9 @@ public class CommandConverter : JsonConverter<Command>
 
     public override void Write(Utf8JsonWriter writer, Command value, JsonSerializerOptions options)
     {
-        //TODO: Implement
-        throw new NotImplementedException();
+        writer.WriteStartObject();
+        writer.WriteString("Key", value.Key.ToString());
+        writer.WriteString("Action", StringCommandMap.Commands.FirstOrDefault(command => command.Value.Execute == value.Action).Key);
+        writer.WriteEndObject();
     }
 }

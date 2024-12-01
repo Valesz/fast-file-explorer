@@ -9,6 +9,8 @@ namespace BWE8LT.Services;
 
 public static class CommandService
 {
+    public static CommandConfig CommandConfig { get; private set; }
+    
     public static void LoadCommands(string configPath)
     {
         string configText = File.ReadAllText(configPath);
@@ -18,9 +20,9 @@ public static class CommandService
             Converters = { new CommandConverter() }
         };
         
-        CommandConfig config = JsonSerializer.Deserialize<CommandConfig>(configText, serializer);
+        CommandConfig = JsonSerializer.Deserialize<CommandConfig>(configText, serializer);
 
-        foreach (Command command in config.CommandsList)
+        foreach (Command command in CommandConfig.CommandsList)
         {
             ICommand.Commands.Add(command.Key, command.Action);
         }

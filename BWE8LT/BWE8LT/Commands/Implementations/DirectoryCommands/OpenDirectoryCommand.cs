@@ -6,7 +6,7 @@ public class OpenDirectoryCommand : ICommand
 {
     public void Execute(ConsoleKey pressedKey, ConsoleController consoleController)
     {
-	    consoleController.CurrentWindow.FileService.OpenDirectory(consoleController.CurrentWindow.Cursor.GetSelectedContent());
+	    consoleController.CurrentWindow.FileService.OpenDirectory(consoleController.CurrentWindow.Cursor.GetSelectedFile().FullPath);
         consoleController.CurrentWindow.Cursor.MoveCursor(0);
         
         consoleController.CurrentWindow.WriteLoadedFilesToConsole();

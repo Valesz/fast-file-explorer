@@ -1,4 +1,4 @@
-using BWE8LT.Utils;
+using BWE8LT.Model;
 
 namespace BWE8LT.Services;
 
@@ -35,8 +35,8 @@ public class Cursor
         }
     }
 
-    public string GetSelectedContent()
+    public FileItem GetSelectedFile()
     {
-        return _window.Content[Position];
+        return _window.FileService.Files[Position];
     }
 }

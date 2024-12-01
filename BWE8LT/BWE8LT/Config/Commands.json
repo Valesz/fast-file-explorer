@@ -45,8 +45,28 @@
             "Action": "NEW_WINDOW"
         },
         {
-            "Key": "D",
+            "Key": "X",
             "Action": "DELETE_WINDOW"
+        },
+        {
+            "Key": "C",
+            "Action": "COPY_ENTRY"
+        },
+        {
+            "Key": "P",
+            "Action": "PASTE_ENTRY"
+        },
+        {
+            "Key": "D",
+            "Action": "DELETE_ENTRY"
+        },
+        {
+            "Key": "F",
+            "Action": "FIND_CHAR"
+        },
+        {
+            "Key": "S",
+            "Action": "SAVE_CONFIG"
         },
         {
             "Key": "D1",

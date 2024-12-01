@@ -2,7 +2,7 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.Implementations.CursorCommands;
 
-public class MoveToTopCommand : ICommand
+public class JumpToTopCommand : ICommand
 {
     public void Execute(ConsoleKey pressedKey, ConsoleController consoleController)
     {

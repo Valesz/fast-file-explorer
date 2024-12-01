@@ -3,6 +3,7 @@ using System.Collections.Frozen;
 using BWE8LT.Commands;
 using BWE8LT.Commands.Implementations.CursorCommands;
 using BWE8LT.Commands.Implementations.DirectoryCommands;
+using BWE8LT.Commands.Implementations.FileCommands;
 using BWE8LT.Commands.Implementations.UtilCommands;
 using BWE8LT.Commands.Implementations.WindowCommands;
 
@@ -22,13 +23,18 @@ public static class StringCommandMap
             {"OPEN_FOLDER", new OpenDirectoryCommand()},
             {"CLOSE_FOLDER", new LeaveDirectoryCommand()},
             {"ITERATE", new IterateCommand()},
-            {"MOVE_TOP", new MoveToTopCommand()},
-            {"MOVE_MIDDLE", new MoveToMiddleCommand()},
-            {"MOVE_BOTTOM", new MoveToBottomCommand()},
+            {"MOVE_TOP", new JumpToTopCommand()},
+            {"MOVE_MIDDLE", new JumpToMiddleCommand()},
+            {"MOVE_BOTTOM", new JumpToBottomCommand()},
             {"NEW_WINDOW", new CreateNewWindowCommand()},
             {"SWITCH_WINDOW_LEFT", new SwitchToLeftWindowFromCurrentCommand()},
             {"SWITCH_WINDOW_RIGHT", new SwitchToRightWindowFromCurrentCommand()},
             {"DELETE_WINDOW", new DeleteCurrentWindowCommand()},
+            {"COPY_ENTRY", new CopyCommand()},
+            {"PASTE_ENTRY", new PasteCommand()},
+            {"DELETE_ENTRY", new DeleteEntryCommand()},
+            {"FIND_CHAR", new JumpToContentStartsWithLetterCommand()},
+            {"SAVE_CONFIG", new SaveConfigCommand()},
         }.ToFrozenDictionary();
     }
 }
