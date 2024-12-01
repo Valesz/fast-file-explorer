@@ -24,8 +24,8 @@ public static class Application
         }
         
         Console.Clear();
-        Console.CursorVisible = false;
         
+        consoleController.CurrentWindow.SetCursorVisibility(false);
         consoleController.CurrentWindow.FileService.ReadAllFiles(consoleController.CurrentWindow.FileService.WorkingDirectory);
         
         consoleController.CurrentWindow.UpdateHeader([
@@ -33,14 +33,15 @@ public static class Application
             consoleController.CurrentWindow.FileService.WorkingDirectory
         ]);
         consoleController.CurrentWindow.WriteLoadedFilesToConsole();
+        consoleController.CurrentWindow.UpdateFooter([consoleController.GetWindowIndicators()]);
         
         consoleController.CurrentWindow.Cursor.MoveCursor(0);
         consoleController.CurrentWindow.RefreshDisplay();
 
         while (true)
         {
-            ConsoleKey pressedKey = CommandService.ReadCommandKey();
-            CommandService.ExecuteCommand(pressedKey, consoleController);
+            ConsoleKeyInfo pressedKey = CommandService.ReadKeyCommand();
+            CommandService.ExecuteKeyCommand(pressedKey, consoleController);
         }
     }
 }

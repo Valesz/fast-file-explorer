@@ -2,7 +2,7 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Model;
 
-public record Command(
-    ConsoleKey Key, 
-    Action<ConsoleKey, ConsoleController> Action
+public abstract record Command<TKey>(
+    TKey Key,
+    Action<TKey, ConsoleController> Action
 );

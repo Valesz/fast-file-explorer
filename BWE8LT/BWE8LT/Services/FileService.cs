@@ -14,18 +14,18 @@ public class FileService
         ReadAllFiles(WorkingDirectory);
     }
 
-    public void OpenDirectory(string path)
+    public string OpenDirectory(string path)
     {
         if (!Directory.Exists(path))
         {
-            return;
+            return WorkingDirectory;
         }
         
         WorkingDirectory = path;
-        ReadAllFiles(WorkingDirectory);
+        return WorkingDirectory;
     }
 
-    public void LeaveDirectory()
+    public string LeaveDirectory()
     {
         int indexOfLastSeparator = WorkingDirectory.LastIndexOf(Path.DirectorySeparatorChar);
         
@@ -33,16 +33,15 @@ public class FileService
         {
             if (indexOfLastSeparator == WorkingDirectory.Length - 1)
             {
-                return;
+                return WorkingDirectory;
             }
             
             WorkingDirectory = WorkingDirectory.Substring(0, indexOfLastSeparator + 1);
-            ReadAllFiles(WorkingDirectory);
-            return;
+            return WorkingDirectory;
         }
         
         WorkingDirectory = WorkingDirectory.Substring(0, indexOfLastSeparator);
-        ReadAllFiles(WorkingDirectory);
+        return WorkingDirectory;
     }
     
     public void ReadAllFiles(string path)

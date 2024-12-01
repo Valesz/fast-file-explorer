@@ -35,7 +35,7 @@ public class Window
         WindowEndIndex = CalculateWindowHeight();
     }
 
-    private int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
+    public int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
     
     private static string GetHeaderContentFooterDivider() => new string('-', Console.WindowWidth);
     
@@ -141,11 +141,25 @@ public class Window
         WindowEndIndex = CalculateWindowHeight();
     }
 
+    public void UpdateHeaderLine(int index, string line)
+    {
+        HeaderContent[index] = line;
+
+        WindowEndIndex = CalculateWindowHeight();
+    }
+
     public void UpdateFooter(List<string> footer)
     {
         FooterContent.Clear();
         FooterContent.Add(GetHeaderContentFooterDivider());
         FooterContent.AddRange(footer);
+
+        WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
+    }
+
+    public void UpdateFooterLine(int index, string line)
+    {
+        FooterContent[index] = line;
 
         WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
     }
@@ -157,8 +171,6 @@ public class Window
 
     public void WriteLoadedFilesToConsole()
     {
-        this.Clear();
-
         StringBuilder lineBuilder = new StringBuilder();
         
         foreach (var file in FileService.Files)
@@ -170,5 +182,10 @@ public class Window
             this.WriteLine(lineBuilder.ToString());
             lineBuilder.Clear();
         }
+    }
+
+    public void SetCursorVisibility(bool visibility)
+    {
+        Console.CursorVisible = visibility;
     }
 }

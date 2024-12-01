@@ -21,8 +21,6 @@ public class ConsoleController
 		
 		CurrentWindow = initalWindow;
 		Windows.Add(initalWindow);
-        
-        UpdateWindowIndicators();
 	}
 
     public int CreateNewWindow(string workingDirectory)
@@ -43,8 +41,6 @@ public class ConsoleController
         int indexOfWindow = Math.Clamp(index, 0, Windows.Count - 1);
         
         CurrentWindow = Windows[indexOfWindow];
-        
-        CurrentWindow.RefreshDisplay();
     }
 
     public int GetIndexOfCurrentWindow()
@@ -52,7 +48,7 @@ public class ConsoleController
         return Windows.IndexOf(CurrentWindow);
     }
 
-    public void UpdateWindowIndicators()
+    public string GetWindowIndicators()
     {
         StringBuilder footerString = new StringBuilder();
         
@@ -69,7 +65,7 @@ public class ConsoleController
 
         footerString.Remove(footerString.Length - 2, 2);
         
-        CurrentWindow.UpdateFooter([footerString.ToString()]);
+        return footerString.ToString();
     }
 
     public void Copy(string[] path)

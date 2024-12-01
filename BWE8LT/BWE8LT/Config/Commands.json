@@ -1,110 +1,232 @@
 {
     "CommandsList": [
         {
+            "Type": "KeyCommand",
             "Key": "UpArrow",
             "Action": "MOVE_UP"
         },
         {
+            "Type": "KeyCommand",
+            "Key": "K",
+            "Action": "MOVE_UP"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "K + ctrl",
+            "Action": "MOVE_TOP"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "J",
+            "Action": "MOVE_DOWN"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "J + ctrl",
+            "Action": "MOVE_BOTTOM"
+        },
+        {
+            "Type": "KeyCommand",
             "Key": "DownArrow",
             "Action": "MOVE_DOWN"
         },
         {
+            "Type": "KeyCommand",
             "Key": "LeftArrow",
             "Action": "SWITCH_WINDOW_LEFT"
         },
         {
+            "Type": "KeyCommand",
+            "Key": "H",
+            "Action": "SWITCH_WINDOW_LEFT"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "H + ctrl",
+            "Action": "SWITCH_WINDOW_FIRST"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "LeftArrow + ctrl",
+            "Action": "SWITCH_WINDOW_FIRST"
+        },
+        {
+            "Type": "KeyCommand",
             "Key": "RightArrow",
             "Action": "SWITCH_WINDOW_RIGHT"
         },
         {
+            "Type": "KeyCommand",
+            "Key": "L",
+            "Action": "SWITCH_WINDOW_RIGHT"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "L + ctrl",
+            "Action": "SWITCH_WINDOW_LAST"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "RightArrow + ctrl",
+            "Action": "SWITCH_WINDOW_LAST"
+        },
+        {
+            "Type": "KeyCommand",
             "Key": "Escape",
             "Action": "EXIT_APPLICATION"
         },
         {
+            "Type": "KeyCommand",
             "Key": "O",
             "Action": "OPEN_FOLDER"
         },
         {
+            "Type": "KeyCommand",
             "Key": "OemPeriod",
             "Action": "CLOSE_FOLDER"
         },
         {
+            "Type": "KeyCommand",
             "Key" : "T",
             "Action": "MOVE_TOP"
         },
         {
+            "Type": "KeyCommand",
+            "Key": "UpArrow + ctrl",
+            "Action": "MOVE_TOP"
+        },
+        {
+            "Type": "KeyCommand",
             "Key": "M",
             "Action": "MOVE_MIDDLE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "B",
             "Action": "MOVE_BOTTOM"
         },
         {
+            "Type": "KeyCommand",
+            "Key": "DownArrow + ctrl",
+            "Action": "MOVE_BOTTOM"
+        },
+        {
+            "Type": "KeyCommand",
             "Key": "N",
             "Action": "NEW_WINDOW"
         },
         {
+            "Type": "KeyCommand",
             "Key": "X",
             "Action": "DELETE_WINDOW"
         },
         {
+            "Type": "KeyCommand",
             "Key": "C",
             "Action": "COPY_ENTRY"
         },
         {
+            "Type": "KeyCommand",
             "Key": "P",
             "Action": "PASTE_ENTRY"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D",
             "Action": "DELETE_ENTRY"
         },
         {
+            "Type": "KeyCommand",
             "Key": "F",
             "Action": "FIND_CHAR"
         },
         {
+            "Type": "KeyCommand",
             "Key": "S",
             "Action": "SAVE_CONFIG"
         },
         {
+            "Type": "KeyCommand",
+            "Key": "I",
+            "Action": "READ_LINE_COMMAND"
+        },
+        {
+            "Type": "KeyCommand",
+            "Key": "R",
+            "Action": "RELOAD_ENTRIES"
+        },
+        {
+            "Type": "LineCommand",
+            "Key": "jump",
+            "Action": "JUMP_TO_LINE"
+        },
+        {
+            "Type": "LineCommand",
+            "Key": "grep",
+            "Action": "GREP_STRING_CONTAINS"
+        },
+        {
+            "Type": "LineCommand",
+            "Key": "grepRegex",
+            "Action": "GREP_REGEX"
+        },
+        {
+            "Type": "LineCommand",
+            "Key": "files",
+            "Action": "FILTER_FILES"
+        },
+        {
+            "Type": "LineCommand",
+            "Key": "dirs",
+            "Action": "FILTER_DIRECTORIES"
+        },
+        {
+            "Type": "KeyCommand",
             "Key": "D1",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D2",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D3",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D4",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D5",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D6",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D7",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D8",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D9",
             "Action": "ITERATE"
         },
         {
+            "Type": "KeyCommand",
             "Key": "D0",
             "Action": "ITERATE"
         }
