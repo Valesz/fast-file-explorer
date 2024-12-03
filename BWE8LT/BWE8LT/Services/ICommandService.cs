@@ -1,11 +1,11 @@
 using BWE8LT.Controller;
-using BWE8LT.Model.JSON_Parse_Objects;
+using BWE8LT.Model;
 
 namespace BWE8LT.Services;
 
 public interface ICommandService
 {
-    public CommandConfigJson CommandConfigJson { get; }
+    public CommandConfig CommandConfig { get; }
 
     public void LoadCommands(string configPath);
 

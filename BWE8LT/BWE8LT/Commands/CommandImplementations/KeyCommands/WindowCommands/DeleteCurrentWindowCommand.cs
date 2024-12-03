@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.WindowCommands;
 
-public class DeleteCurrentWindowCommand : IKeyCommand
+public class DeleteCurrentWindowCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (consoleController.Windows.Count <= 1)
         {

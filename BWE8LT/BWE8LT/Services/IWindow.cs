@@ -6,7 +6,7 @@ public interface IWindow
     
     public List<string> FooterContent { get; }
     
-    public List<string> Content { get; }
+    public List<List<string>> Content { get; }
     
     public ICursor Cursor { get; }
     
@@ -18,21 +18,11 @@ public interface IWindow
 
     public void SetWindowTopPosition(int top);
 
-    public void WriteLine(string line);
-
-    public void Write(string text);
-
     public void Clear();
 
     public void UpdateHeader(List<string> header);
 
-    public void UpdateHeaderLine(int index, string line);
-
     public void UpdateFooter(List<string> footer);
-
-    public void UpdateFooterLine(int index, string line);
-
-    public void RewriteLine(int linePosition, string line);
 
     public void WriteLoadedFilesToConsole();
 

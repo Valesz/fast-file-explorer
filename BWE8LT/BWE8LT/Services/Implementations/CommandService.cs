@@ -1,15 +1,15 @@
 using System.Text.Json;
 
 using BWE8LT.Commands.CommandTypes;
+using BWE8LT.Commands.Factories;
 using BWE8LT.Controller;
 using BWE8LT.Model;
-using BWE8LT.Model.JSON_Parse_Objects;
 
 namespace BWE8LT.Services.Implementations;
 
 public class CommandService : ICommandService
 {
-    public CommandConfigJson CommandConfigJson { get; set; }
+    public CommandConfig CommandConfig { get; set; }
     
     public void LoadCommands(string configPath)
     {
@@ -20,24 +20,15 @@ public class CommandService : ICommandService
             PropertyNameCaseInsensitive = true,
         };
         
-        CommandConfigJson = JsonSerializer.Deserialize<CommandConfigJson>(configText, options) 
+        CommandConfig = JsonSerializer.Deserialize<CommandConfig>(configText, options) 
                             ?? throw new ArgumentException("Couldn't deserialize config");
 
-        foreach (CommandJson command in CommandConfigJson.CommandsList)
+        CommandFactoryManager manager = new CommandFactoryManager();
+        
+        foreach (Command command in CommandConfig.CommandsList)
         {
-            switch (command)
-            {
-                case KeyCommandJson keyCommandJson:
-                    KeyCommand keyCommandModel = keyCommandJson.ToCommand();
-                    IKeyCommand.Commands.Add(keyCommandModel.Key, keyCommandModel.Action);
-                    break;
-                case LineCommandJson lineCommandJson:
-                    LineCommand lineCommandModel = lineCommandJson.ToCommand();
-                    ILineCommand.Commands.Add(lineCommandModel.Key, lineCommandModel.Action);
-                    break;
-                default:
-                    throw new ArgumentException("Command type not recognized");
-            }   
+            (object, ICommand) keyCommandPairs = manager.CreateCommand(command.Action, command.Key, command.Type);
+            ICommand.Commands.Add(keyCommandPairs.Item1, keyCommandPairs.Item2.Execute);
         }
     }
 
@@ -63,7 +54,7 @@ public class CommandService : ICommandService
     {
         try
         {
-            IKeyCommand.Commands[commandKey].Invoke(commandKey, consoleController);
+            ICommand.Commands[commandKey].Invoke(commandKey, consoleController);
         }
         catch (KeyNotFoundException _)
         {
@@ -88,7 +79,7 @@ public class CommandService : ICommandService
         try
         {
             string command = line.Split(" ")[0];
-            ILineCommand.Commands[command].Invoke(line, consoleController);
+            ICommand.Commands[command].Invoke(line, consoleController);
         }
         catch (Exception ex)
         {

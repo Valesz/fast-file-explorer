@@ -2,9 +2,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandTypes;
 
-public interface ICommand<in TCommand> where TCommand : notnull
+public interface ICommand
 {
-    public static Dictionary<TCommand, Action<TCommand, IConsoleController>> Commands { get; } = [];
+    public static Dictionary<object, Action<object, IConsoleController>> Commands { get; } = [];
     
-    public void Execute(TCommand pressedKey, IConsoleController consoleController);
+    public void Execute(object pressedKey, IConsoleController consoleController);
 }

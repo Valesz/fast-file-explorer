@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.WindowCommands;
 
-public class CreateNewWindowCommand : IKeyCommand
+public class CreateNewWindowCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         int indexOfNewWindow = consoleController.CreateNewWindow(consoleController.CurrentWindow.FileService.WorkingDirectory);
         

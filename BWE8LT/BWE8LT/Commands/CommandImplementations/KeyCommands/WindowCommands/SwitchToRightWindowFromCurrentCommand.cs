@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.WindowCommands;
 
-public class SwitchToRightWindowFromCurrentCommand : IKeyCommand
+public class SwitchToRightWindowFromCurrentCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         consoleController.SwitchCurrentWindow(consoleController.GetIndexOfCurrentWindow() + 1);
         

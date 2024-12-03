@@ -3,11 +3,11 @@ using BWE8LT.Utils.Constants;
 
 namespace BWE8LT.Commands.Factories.Implementations;
 
-public class LineCommandFactory : ICommandFactory<ILineCommand>
+public class LineCommandFactory : ICommandFactory
 {
-    public ILineCommand CreateCommand(string command)
+    public (object, ICommand) CreateCommand(string command, string key)
     {
-        return StringToLineCommandMap.Commands[command];
+        return (key, StringToLineCommandMap.Commands[command]);
     }
 
     public bool SupportsType(string type) => "LineCommand" == type;

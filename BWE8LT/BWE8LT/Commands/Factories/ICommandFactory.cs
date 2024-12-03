@@ -1,8 +1,10 @@
+using BWE8LT.Commands.CommandTypes;
+
 namespace BWE8LT.Commands.Factories;
 
-public interface ICommandFactory<out TCommandType> where TCommandType : notnull
+public interface ICommandFactory
 {
-    public TCommandType CreateCommand(string command);
+    public (object, ICommand) CreateCommand(string command, string key);
 
     public bool SupportsType(string type);
 }

@@ -4,9 +4,9 @@ using BWE8LT.Model;
 
 namespace BWE8LT.Commands.CommandImplementations.LineCommands.ContentCommands;
 
-public class FilterEntriesContainsStringCommand : ILineCommand
+public class FilterEntriesContainsStringCommand : ALineCommand
 {
-    public void Execute(string line, IConsoleController consoleController)
+    protected override void Execute(string line, IConsoleController consoleController)
     {
         string[] args = line.Split(" ")[1..];
 

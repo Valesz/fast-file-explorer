@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.FileCommands;
 
-public class CopyCommand : IKeyCommand
+public class CopyCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         int cursorPosition = consoleController.CurrentWindow.Cursor.Position;
         string fullPathForLoadedFile =

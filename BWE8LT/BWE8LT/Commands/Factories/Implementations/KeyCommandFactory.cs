@@ -3,11 +3,19 @@ using BWE8LT.Utils.Constants;
 
 namespace BWE8LT.Commands.Factories.Implementations;
 
-public class KeyCommandFactory : ICommandFactory<IKeyCommand>
+public class KeyCommandFactory : ICommandFactory
 {
-    public IKeyCommand CreateCommand(string command)
+    public (object, ICommand) CreateCommand(string command, string key)
     {
-        return StringToKeyCommandMap.Commands[command];
+        ConsoleKeyInfo resultKey = new ConsoleKeyInfo(
+            '.',
+            Enum.Parse<ConsoleKey>(key.Split(' ')[0]),
+            key.ToLower().Contains("shift"),
+            key.ToLower().Contains("alt"),
+            key.ToLower().Contains("ctrl")
+        );
+        
+        return (resultKey, StringToKeyCommandMap.Commands[command]);
     }
 
     public bool SupportsType(string type) => "KeyCommand" == type;

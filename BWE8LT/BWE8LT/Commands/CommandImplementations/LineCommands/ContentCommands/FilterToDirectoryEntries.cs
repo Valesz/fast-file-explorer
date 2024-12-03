@@ -4,9 +4,9 @@ using BWE8LT.Model;
 
 namespace BWE8LT.Commands.CommandImplementations.LineCommands.ContentCommands;
 
-public class FilterToDirectoryEntries : ILineCommand
+public class FilterToDirectoryEntries : ALineCommand
 {
-    public void Execute(string line, IConsoleController consoleController)
+    protected override void Execute(string line, IConsoleController consoleController)
     {
         FileItem[] newFiles = consoleController.CurrentWindow.FileService.Files.Where(
             file => file.IsDirectory

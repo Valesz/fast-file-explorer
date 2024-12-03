@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.CursorCommands;
 
-public class MoveDownCommand : IKeyCommand
+public class MoveDownCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (consoleController.CurrentWindow.Cursor.Position + 1 > consoleController.CurrentWindow.Content.Count - 1)
         {

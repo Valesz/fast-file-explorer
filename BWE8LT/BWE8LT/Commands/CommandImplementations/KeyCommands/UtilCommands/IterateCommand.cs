@@ -3,13 +3,13 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.UtilCommands;
 
-public class IterateCommand : IKeyCommand
+public class IterateCommand : AKeyCommand
 {
     private static string Times { get; set; } = String.Empty;
 
     private static List<string> OriginalFooter { get; } = new List<string>();
     
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (OriginalFooter.Count == 0 && consoleController.CurrentWindow.FooterContent.Count > 0)
         {
@@ -31,8 +31,14 @@ public class IterateCommand : IKeyCommand
             consoleController.CommandService.ExecuteKeyCommand(commandKey, consoleController);
             return;
         }
+
+        if (!Int32.TryParse(Times, out int timesInt))
+        {
+            Times = String.Empty;
+            throw new ArgumentException("Value is either too large or not given!");
+        }
         
-        for (int i = 0; i < Int32.Parse(Times); i++)
+        for (int i = 0; i < timesInt; i++)
         {
             consoleController.CommandService.ExecuteKeyCommand(commandKey, consoleController);
         }

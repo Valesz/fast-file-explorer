@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations;
 
-public class StartReadingLineCommand : IKeyCommand
+public class StartReadingLineCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         consoleController.CurrentWindow.UpdateFooter(["", consoleController.GetWindowIndicators()]);
         consoleController.CurrentWindow.RefreshDisplay();

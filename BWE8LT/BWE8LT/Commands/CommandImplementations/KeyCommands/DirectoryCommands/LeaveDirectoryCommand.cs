@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.DirectoryCommands;
 
-public class LeaveDirectoryCommand : IKeyCommand
+public class LeaveDirectoryCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
 	    string workingDirectory = consoleController.CurrentWindow.FileService.WorkingDirectory;
 	    int indexOfLastSeparator = workingDirectory.LastIndexOf(Path.DirectorySeparatorChar);

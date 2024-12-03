@@ -5,16 +5,16 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.UtilCommands;
 
-public class SaveConfigCommand : IKeyCommand
+public class SaveConfigCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         var serializer = new JsonSerializerOptions
         {
             WriteIndented = true
         };
         
-        string json = JsonSerializer.Serialize(consoleController.CommandService.CommandConfigJson, serializer);
+        string json = JsonSerializer.Serialize(consoleController.CommandService.CommandConfig, serializer);
         File.WriteAllText(consoleController.CurrentWindow.FileService.WorkingDirectory + @"\Commands.json", json);
 
         consoleController.CurrentWindow.Clear();

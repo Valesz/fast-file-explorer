@@ -3,22 +3,22 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.CursorCommands;
 
-public class JumpToContentStartsWithLetterCommand : IKeyCommand
+public class JumpToContentStartsWithLetterCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         char startingChar = Console.ReadKey().KeyChar;
         int indexOfLine =
             consoleController.CurrentWindow.Content.FindIndex(
                 consoleController.CurrentWindow.Cursor.Position + 1,
-                line => line.ToLower().StartsWith(startingChar)
+                line => line[0].ToLower().StartsWith(startingChar)
             );
 
         if (indexOfLine < 0)
         {
             indexOfLine = 
                 consoleController.CurrentWindow.Content.FindIndex(
-                line => line.ToLower().StartsWith(startingChar)
+                line => line[0].ToLower().StartsWith(startingChar)
                 );
             
             if (indexOfLine < 0)

@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.FileCommands;
 
-public class PasteCommand : IKeyCommand
+public class PasteCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (consoleController.Clipboard.Count <= 0)
         {
@@ -26,6 +26,7 @@ public class PasteCommand : IKeyCommand
             }   
         }
         
+        consoleController.CurrentWindow.Clear();
         consoleController.CurrentWindow.FileService.ReadAllFiles(consoleController.CurrentWindow.FileService.WorkingDirectory);
         consoleController.CurrentWindow.WriteLoadedFilesToConsole();
         consoleController.CurrentWindow.RefreshDisplay();

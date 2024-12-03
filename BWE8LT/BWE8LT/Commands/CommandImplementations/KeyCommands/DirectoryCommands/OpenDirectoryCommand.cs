@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.DirectoryCommands;
 
-public class OpenDirectoryCommand : IKeyCommand
+public class OpenDirectoryCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
         if (!Directory.Exists(consoleController.CurrentWindow.Cursor.GetSelectedFile().FullPath))
         {

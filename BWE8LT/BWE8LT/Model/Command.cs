@@ -1,8 +1,15 @@
-using BWE8LT.Controller;
+using System.Text.Json.Serialization;
 
 namespace BWE8LT.Model;
 
-public abstract record Command<TKey>(
-    TKey Key,
-    Action<TKey, IConsoleController> Action
-);
+public class Command
+{
+    [JsonPropertyName("Type")]
+    public required string Type { get; set; }
+    
+    [JsonPropertyName("Key")]
+    public required string Key { get; set; }
+
+    [JsonPropertyName("Action")]
+    public required string Action { get; set; }
+}

@@ -3,9 +3,9 @@ using BWE8LT.Controller;
 
 namespace BWE8LT.Commands.CommandImplementations.KeyCommands.CursorCommands;
 
-public class JumpToTopCommand : IKeyCommand
+public class JumpToTopCommand : AKeyCommand
 {
-    public void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
+    protected override void Execute(ConsoleKeyInfo pressedKey, IConsoleController consoleController)
     {
 	    consoleController.CurrentWindow.Cursor.MoveCursor(0);
         consoleController.CurrentWindow.RefreshDisplay();

@@ -10,11 +10,11 @@ public class Window : IWindow
 
     private int ContentBufferSize { get; }
     
-    public List<string> Content { get; }
+    public List<List<string>> Content { get; }
 
-    public int WindowStartIndex { get; set; }
+    public int WindowStartIndex { get; private set; }
 
-    public int WindowEndIndex { get; set; }
+    public int WindowEndIndex { get; private set; }
 
     public ICursor Cursor { get; }
     
@@ -35,7 +35,7 @@ public class Window : IWindow
         WindowEndIndex = CalculateWindowHeight();
     }
 
-    public int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count;
+    public int CalculateWindowHeight() => Console.WindowHeight - FooterContent.Count - HeaderContent.Count - 1;
     
     private static string GetHeaderContentFooterDivider() => new string('-', Console.WindowWidth);
     
@@ -53,8 +53,11 @@ public class Window : IWindow
         {
             if (Cursor.Position == i)
                 Console.ForegroundColor = ConsoleColor.Green;
-                
-            Console.Write($"{i + 1}. {Content[i]}".PadRight(Console.WindowWidth));
+
+            foreach (string line in Content[i])
+            {
+                Console.Write(line.PadRight(Console.WindowWidth));
+            }
             
             Console.ResetColor();
         }
@@ -77,6 +80,31 @@ public class Window : IWindow
         Console.SetCursorPosition(0, originalCursorPosition);
     }
 
+    private static List<string> WrapText(string text, int width)
+    {
+        char[] letters = text.ToCharArray();
+        List<string> lines = new List<string>();
+        StringBuilder currentLine = new StringBuilder();
+
+        foreach (char letter in letters)
+        {
+            if (currentLine.Length + 1 > width)
+            {
+                lines.Add(currentLine.ToString());
+                currentLine.Clear();
+            }
+
+            currentLine.Append(letter);
+        }
+
+        if (currentLine.Length > 0)
+        {
+            lines.Add(currentLine.ToString());
+        }
+
+        return lines;
+    }
+    
     private void DrawScrollBar()
     {
         double visiblePercentage = (double)Cursor.Position / Content.Count;
@@ -105,7 +133,8 @@ public class Window : IWindow
 
     public void WriteLine(string line)
     {
-        Content.Add(line);
+        var lines = WrapText(line, Console.WindowWidth);
+        Content.Add(lines);
 
         while (Content.Count > ContentBufferSize)
         {
@@ -117,12 +146,20 @@ public class Window : IWindow
     {
         if (Content.Count == 0)
         {
-            Content.Add(text);
+            Content[^1].Add(text);
+            return;
         }
-        else
+
+        if (Content[^1][^1].Length + text.Length + 1 > Console.WindowWidth)
         {
-            Content[^1] += text;
+            var lines = WrapText(Content[^1] + text, Console.WindowWidth);
+            
+            Content.RemoveAt(Content.Count - 1);
+            Content[^1].AddRange(lines);
+            return;
         }
+        
+        Content[^1][^1] += text;
     }
 
     public void Clear()
@@ -134,53 +171,47 @@ public class Window : IWindow
 
     public void UpdateHeader(List<string> header)
     {
+        var lines = new List<string>();
+        foreach (var line in header)
+        {
+            lines.AddRange(WrapText(line, Console.WindowWidth));
+        }
+        
         HeaderContent.Clear();
-        HeaderContent.AddRange(header);
+        HeaderContent.AddRange(lines);
         HeaderContent.Add(GetHeaderContentFooterDivider());
 
-        WindowEndIndex = CalculateWindowHeight();
-    }
-
-    public void UpdateHeaderLine(int index, string line)
-    {
-        HeaderContent[index] = line;
-
-        WindowEndIndex = CalculateWindowHeight();
+        WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
     }
 
     public void UpdateFooter(List<string> footer)
     {
+        var lines = new List<string>();
+        foreach (var line in footer)
+        {
+            lines.AddRange(WrapText(line, Console.WindowWidth));
+        }
+        
         FooterContent.Clear();
         FooterContent.Add(GetHeaderContentFooterDivider());
-        FooterContent.AddRange(footer);
+        FooterContent.AddRange(lines);
 
         WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
-    }
-
-    public void UpdateFooterLine(int index, string line)
-    {
-        FooterContent[index] = line;
-
-        WindowEndIndex = WindowStartIndex + CalculateWindowHeight();
-    }
-    
-    public void RewriteLine(int linePosition, string line)
-    {
-        Content[linePosition] = line;
     }
 
     public void WriteLoadedFilesToConsole()
     {
         StringBuilder lineBuilder = new StringBuilder();
+        int count = 1;
         
         foreach (var file in FileService.Files)
         {
-            lineBuilder.Append(file.Name);
-            lineBuilder.Append(" - ");
+            lineBuilder.Append($"{count}. {file.Name} - ");
             lineBuilder.Append(file.IsDirectory ? "(DIR)" : "(FILE)");
             
             this.WriteLine(lineBuilder.ToString());
             lineBuilder.Clear();
+            count++;
         }
     }
 

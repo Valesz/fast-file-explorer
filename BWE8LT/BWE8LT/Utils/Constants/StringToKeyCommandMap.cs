@@ -12,11 +12,11 @@ namespace BWE8LT.Utils.Constants;
 
 public static class StringToKeyCommandMap
 {
-    public static FrozenDictionary<string, IKeyCommand> Commands { get; }
+    public static FrozenDictionary<string, ICommand> Commands { get; }
 
     static StringToKeyCommandMap()
     {
-        Commands = new Dictionary<string, IKeyCommand>
+        Commands = new Dictionary<string, ICommand>
         {
             {"MOVE_UP", new MoveUpCommand()},
             {"MOVE_DOWN", new MoveDownCommand()},
