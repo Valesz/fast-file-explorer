@@ -1,6 +1,6 @@
 # Fast File Explorer
 
-Fast File Explorer is a console application for fast file management with only the keyboard to maximize efficency. With this application you don't need to spend time navigating between your mouse and keyboard, so you can be as productive as you can be! 
+Fast File Explorer is a console application for fast file management with only the keyboard to maximize efficency. With this application you don't need to spend time navigating between your mouse and keyboard, so you can be as productive as possible! 
 
 This project was created for a university course where we learned about developing with modern principals in C#. Although those principles apply generally.
 
