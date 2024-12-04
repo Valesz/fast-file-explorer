@@ -48,8 +48,8 @@ public class Window : IWindow
         {
             Console.Write(line.PadRight(Console.WindowWidth));
         }
-
-        for (int i = WindowStartIndex; i < Math.Min(Content.Count, WindowEndIndex); i++)
+        
+        for (int i = WindowStartIndex; i <= Math.Min(Content.Count - 1, WindowEndIndex); )
         {
             if (Cursor.Position == i)
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -57,12 +57,13 @@ public class Window : IWindow
             foreach (string line in Content[i])
             {
                 Console.Write(line.PadRight(Console.WindowWidth));
+                i++;
             }
             
             Console.ResetColor();
         }
         
-        for (int i = Math.Min(Content.Count, WindowEndIndex); i < WindowEndIndex; i++)
+        for (int i = Math.Min(Content.Count - 1, WindowEndIndex); i < WindowEndIndex; i++)
         {
             Console.Write("".PadRight(Console.WindowWidth));
         }
