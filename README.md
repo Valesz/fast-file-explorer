@@ -1,38 +1,81 @@
-# SZTE egyetemi kurzus, 2024 Őszi félév házi feleadat repó
+# Fast File Explorer
 
-Git gyorstalpaló: https://github.com/CsharptutorialHungary/egyetemikurzus-2024-osz/tree/main/.git-tutorial
+Fast File Explorer is a console application for fast file management with only the keyboard to maximize efficency. With this application you don't need to spend time navigating between your mouse and keyboard, so you can be as productive as possible! 
 
-## Technikai követelmények
+This project was created for a university course where we learned about developing with modern principals in C#. Although those principles apply generally.
 
-* .NET 8
-* Konzolos alkalmazás
+## Technologies
 
-## Értékelés
+- .NET 8
+- C#
 
-Az értékelés utolsó órán védéssel fog zárulni.
+## Installation
 
-* **Két ember dolgozhat egy alkalmazáson, de akkor a Unit tesztek megléte kötelező és nem opcionális!**
-* **Kódot fogom nézni, nem a program működését főként**, de ez nem azt jelenti, hogy a kódnak nem kell fordulnia! (Unit teszt ha van, akkor az bukhat, de indokot várok ebben az esetben, hogy miért bukik a teszt.)
-* **A karakterek ingyen vannak.** Legyen normálisan elnevezve minden. Nem akarok látni `asd`, `a`, `b`, `c` meg semmit mondó metódus, tulajdonság és változó neveket.
-* **Folyamatos munkát várok**, nem egy giga maratonban kommitolást => másolást feltételezek
+1. Build the project.
+2. Copy the Config directory to the built path.
+3. Add the application to your path variables.
+4. Use it where ever and whenever you like!
 
-## Konzultáció
+## Making your own configuration:
 
-* Óra után személyesen
-* Github issue formában itt.
+Just modify the Config.json file in the Config folder to your liking.
 
-## Beadás menete
+### Key Commands
 
-1. Regisztrálsz github-ra, ha még nem tetted volna meg.
-2. Ezen repó fork gombjával készítesz egy fork-ot erről a repóról.
-3. Issue formában vedd fel a házi feladatod témáját. 
-4. A forkot repót checkoutolod, csinálsz egy mappát, ami a kódod tartalmazza. A mappa neve a neptun kódod legyen. Ha ketten dolgoztok, akkor a kettőtök neve `_` karakterrel elválasztva.
-5. Elkészítitek a beadandót, folyamatos commitokkal.
-6. A végén, amikor be akarjátok adni, akkor készítetek egy pull request-et erre a repóra.
-7. A pull request legyen az issue-hoz csatolva.
+Key commands are a type of commands that can be activated by a single key press.
 
-## Ajánlott olvasmányok
+Set the **Key** property to a **ConsoleKey** value to activate the Action paired to it! <br>
+You can also apply shift, alt, ctrl modifiers to it. <br>
+(See: `LeftArrow + ctrl + alt`)
 
-* [Git tutorial](https://docs.github.com/en/get-started/quickstart)
-* [C# tutorial](https://csharptutorial.hu/)
-* [Ultimate .NET cheat sheet](https://webmaster442.github.io/ultimatedotnetcheatsheet/)
+For the **Action** property choose one from the available Key commands which you can find below.
+
+Also don't forget to set the **Type** property to `KeyCommand`.
+
+## Line Commands
+
+Line commands are activated by a key command which you can specify. (As default it is `I`)
+
+Set the **Key** property to the activation word. (Like: `grep`, `jump`)
+
+Set the **Action** property to one of the available Line commands which you can see below.
+
+Also don't forget to set the **Type** property to `LineCommand`.
+
+## Available commands:
+
+### Key commands:
+
+- MOVE_UP
+- MOVE_DOWN
+- MOVE_TOP
+- MOVE_MIDDLE
+- MOVE_BOTTOM
+- FIND_CHAR
+- RELOAD_ENTRIES
+- OPEN_FOLDER
+- CLOSE_FOLDER
+- NEW_WINDOW
+- DELETE_WINDOW
+- SWITCH_WINDOW_FIRST
+- SWITCH_WINDOW_LEFT
+- SWITCH_WINDOW_RIGHT
+- SWITCH_WINDOW_LAST
+- ITERATE (Only works with numbers)
+- COPY_ENTRY
+- PASTE_ENTRY
+- DELETE_ENTRY
+- SAVE_CONFIG
+- READ_LINE_COMMAND
+
+### Line commands:
+
+- JUMP_TO_LINE
+- GREP_STRING_CONTAINS
+- GREP_REGEX
+- FILTER_FILES
+- FILTER_DIRECTORIES
+
+## Credits
+
+The application was developed by: Csonka Valentin Viktor
